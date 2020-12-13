@@ -106,6 +106,7 @@
 }
 
 #save_button {
+    cursor: pointer;
     background-color: rgba(238.00000101327896, 235.0000011920929, 230.00000149011612, 0.7599999904632568);
     opacity: 1;
     width: 28%;

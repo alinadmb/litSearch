@@ -107,6 +107,7 @@
 }
 
 #signin_button {
+    cursor: pointer;
     opacity: 1;
     width: 35%;
     height: 10%;
@@ -127,15 +128,15 @@
     line-height: undefined;
 }
 
-#signin_button_text {
+#forgot_pswd_block {
     color: rgba(115.81250354647636, 115.81250354647636, 115.81250354647636, 1);
     opacity: 1;
     position: absolute;
-    left: 20%;
-    top: 20%;
-    font-family: Tenor Sans;
+    left: 21%;
+    top: 57%;
+    font-family: Montserrat;
     text-align: left;
-    font-size: 24px;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: undefined;
 }
