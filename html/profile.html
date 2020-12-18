@@ -6,10 +6,10 @@
     <link href="../css/profile_style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Tenor+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <title>litSearch</title>
+    <title>litSearch - Profile</title>
 </head>
 
-<body>
+<body onload="loadPage()">
     <div id="bg">
         <div id="menu">
             <a href="main.html">
@@ -27,30 +27,31 @@
         </div>
         <a href="favorites.html">
             <div id="favorites_block">
-                <span class="to_text">Избранное</span>
+                <span class="to_text">Favorites</span>
                 <img class="arrow_icon_to" src="../images/arrow.png">
             </div>
         </a>
         <a href="recommendations.html">
             <div id="recommendations_block">
-                <span class="to_text">Рекомендации</span>
+                <span class="to_text">Recommendations</span>
                 <img class="arrow_icon_to" src="../images/arrow.png">
             </div>
         </a>
         <div id="info_block">
-            <span id="info_text">Личная информация</span>
-            <span class="title" id="name">Имя: </span>
-            <span class="value" id="name">Алина</span>
+            <span id="info_text">Personal info</span>
+            <span class="title" id="name">Name: </span>
+            <span class="value name_value" id="name"></span>
             <span class="title" id="email">Email: </span>
-            <span class="value" id="email">alina@mail.ru</span>
+            <span class="value email_value" id="email"></span>
             <a href="settings.html">
                 <div id="edit_button">
-                    <span id="edit_text">Редактировать</span>
+                    <span id="edit_text">Edit</span>
                     <img id="settings_icon" src="../images/settings.png">
                 </div>
             </a>
         </div>
     </div>
+    <script src="../js/profile.js"></script>
 </body>
 
 </html>

@@ -82,6 +82,7 @@
     width: 300px;
     height: 130px;
     position: absolute;
+    cursor: pointer;
 }
 
 .book_block_up {
@@ -116,7 +117,20 @@
     left: 3%;
     top: 2%;
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: undefined;
+}
+
+#book_author {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 3%;
+    top: 18%;
+    text-align: left;
+    font-size: 16px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -127,19 +141,32 @@
     position: absolute;
     font-family: Montserrat;
     left: 3%;
-    top: 25%;
+    top: 35%;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: undefined;
 }
 
 .delete_button {
     opacity: 1;
-    width: 20px;
+    width: 18px;
     position: absolute;
-    right: 2%;
+    right: 3%;
     outline: none;
+}
+
+#pages {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 50%;
+    top: 85%;
+    text-align: left;
+    font-size: 17px;
+    letter-spacing: 0;
+    line-height: undefined;
 }
 
 .page_block {
@@ -148,6 +175,7 @@
     width: 10%;
     height: 10%;
     top: 85%;
+    cursor: pointer;
 }
 
 #prev_page_block {
@@ -169,6 +197,10 @@
     line-height: undefined;
 }
 
+#next_page_text {
+    left: 40%;
+}
+
 #prev_page_text {
     left: 45%;
 }
@@ -188,4 +220,17 @@
 
 #arrow_icon_next {
     left: 80%;
+}
+
+#no_res {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 10%;
+    top: 20%;
+    text-align: left;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: undefined;
 }

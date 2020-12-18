@@ -70,7 +70,7 @@
     opacity: 1;
     position: absolute;
     width: 550px;
-    height: 40px;
+    height: 38px;
     left: 1%;
     font-family: Montserrat;
     text-align: left;
@@ -82,11 +82,10 @@
     border: none;
     outline: none;
     color: #747474;
-    /* border: 1px solid rgba(175.3125, 175.3125, 175.3125, 1);
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px; */
+    border-bottom-right-radius: 40px;
 }
 
 #search_button {
@@ -109,6 +108,7 @@
 }
 
 .book_block {
+    cursor: pointer;
     background-color: rgba(249.6875050663948, 232.20940053462982, 205.99219053983688, 0.3700000047683716);
     opacity: 1;
     width: 300px;
@@ -122,6 +122,10 @@
 
 .book_block_down {
     top: 46%;
+}
+
+.book_block_down_down {
+    top: 69%;
 }
 
 .book_block_left {
@@ -144,7 +148,20 @@
     left: 3%;
     top: 2%;
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: undefined;
+}
+
+#book_author {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 3%;
+    top: 18%;
+    text-align: left;
+    font-size: 16px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -155,9 +172,9 @@
     position: absolute;
     font-family: Montserrat;
     left: 3%;
-    top: 25%;
+    top: 35%;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -168,25 +185,36 @@
     position: absolute;
     font-family: Tenor Sans;
     left: 50%;
-    top: 68%;
+    top: 91%;
     text-align: left;
     font-size: 17px;
     letter-spacing: 0;
     line-height: undefined;
 }
 
-#next_page_block {
+.page_block {
     opacity: 1;
     position: absolute;
-    width: 10%;
     height: 10%;
-    top: 68%;
+    top: 90%;
     left: 78%;
+    cursor: pointer;
 }
 
-#next_page_text {
+#next_page_block {
+    left: 78%;
+    width: 10%;
+}
+
+#prev_page_block {
+    left: 10%;
+    width: 12%;
+}
+
+.page_text {
     color: #747474;
     opacity: 1;
+    top: 13%;
     position: absolute;
     font-family: Tenor Sans;
     text-align: left;
@@ -195,29 +223,40 @@
     line-height: undefined;
 }
 
-#arrow_icon_2 {
+#next_page_text {
+    left: 10%;
+}
+
+#prev_page_text {
+    left: 35%;
+}
+
+.arrow {
     opacity: 1;
     width: 40px;
     height: 25px;
     position: absolute;
-    left: 80%;
     top: 10%;
     background-repeat: no-repeat;
 }
 
-#recommended_text {
+#arrow_icon_prev {
+    transform: rotate(180deg);
+}
+
+#arrow_icon_next {
+    left: 80%;
+}
+
+#no_res {
     color: rgba(0, 0, 0, 1);
     opacity: 1;
     position: absolute;
     font-family: Tenor Sans;
-    left: 10%;
-    top: 70%;
+    left: 20%;
+    top: 30%;
     text-align: left;
     font-size: 20px;
     letter-spacing: 0;
     line-height: undefined;
-}
-
-.book_block_down_down {
-    top: 75%;
 }

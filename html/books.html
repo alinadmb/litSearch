@@ -26,77 +26,75 @@
             </a>
         </div>
         <form id="search_block">
-            <input type="text" name="search_input" placeholder="Введите название книги" id="search_input">
-            <input type="image" id="search_button" src="../images/search.png">
+            <input type="text" name="search_input" placeholder="Name of the book..." id="search_input">
+            <input type="image" id="search_button" src="../images/search.png" onclick="searchBook()">
         </form>
-        <div>
-            <a href="book.html">
-                <div class="book_block book_block_up book_block_left" id="book_block1">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+        <div id="content">
+            <div id="all_books_block">
+                <div class="book_block book_block_up book_block_left" id="book_block1" onclick="openBookInfo(1)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_up book_block_middle" id="book_block2">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+                <div class="book_block book_block_up book_block_middle" id="book_block2" onclick="openBookInfo(2)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_up book_block_right" id="book_block3">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+                <div class="book_block book_block_up book_block_right" id="book_block3" onclick="openBookInfo(3)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_down book_block_left" id="book_block4">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+                <div class="book_block book_block_down book_block_left" id="book_block4" onclick="openBookInfo(4)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_down book_block_middle" id="book_block5">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+                <div class="book_block book_block_down book_block_middle" id="book_block5" onclick="openBookInfo(5)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_down book_block_right" id="book_block6">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+                <div class="book_block book_block_down book_block_right" id="book_block6" onclick="openBookInfo(6)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
                 </div>
-            </a>
-        </div>
-        <div id="pages">1..50</div>
-        <a href="books.html">
-            <div id="next_page_block">
-                <span id="next_page_text">cледующая страница</span>
-                <img id="arrow_icon_2" src="../images/arrow.png">
+                <div class="book_block book_block_down_down book_block_left" id="book_block7" onclick="openBookInfo(7)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
+                </div>
+                <div class="book_block book_block_down_down book_block_middle" id="book_block8" onclick="openBookInfo(8)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
+                </div>
+                <div class="book_block book_block_down_down book_block_right" id="book_block9" onclick="openBookInfo(9)">
+                    <span id="book_title"></span>
+                    <span id="book_author"></span>
+                    <span id="book_text"></span>
+                </div>
             </div>
-        </a>
-        <a href="recommendations.html">
-            <span id="recommended_text">Рекомендуемое Вам</span>
-        </a>
-        <div>
-            <a href="book.html">
-                <div class="book_block book_block_down_down book_block_left" id="book_block7">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+            <div id="pages"></div>
+            <div id="prev_block">
+                <div class="page_block" id="prev_page_block" onclick="toPrevPage()">
+                    <span class="page_text" id="prev_page_text">previous page</span>
+                    <img class="arrow" id="arrow_icon_prev" src="../images/arrow.png">
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_down_down book_block_middle" id="book_block8">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
+            </div>
+            <div id="next_block">
+                <div class="page_block" id="next_page_block" onclick="toNextPage()">
+                    <span class="page_text" id="next_page_text">next page</span>
+                    <img class="arrow" id="arrow_icon_next" src="../images/arrow.png">
                 </div>
-            </a>
-            <a href="book.html">
-                <div class="book_block book_block_down_down book_block_right" id="book_block9">
-                    <span id="book_title">“Война и мир” Л.Н. Толстой</span>
-                    <span id="book_text">"Война и мир" Л. Н. Толстого - книга на все времена. Как будто она...</span>
-                </div>
-            </a>
+            </div>
         </div>
+    </div>
+    <script src="../js/books.js"></script>
+    <div id="scripts">
+        <script id="link" type="text/javascript" src="https://www.googleapis.com/books/v1/volumes?q=dostoevsky&callback=handleResponse&maxResults=40"></script>
     </div>
 </body>
 

@@ -77,6 +77,7 @@
 }
 
 .book_block {
+    cursor: pointer;
     background-color: rgba(249.6875050663948, 232.20940053462982, 205.99219053983688, 0.3700000047683716);
     opacity: 1;
     width: 300px;
@@ -88,11 +89,11 @@
     top: 10%;
 }
 
-.book_block_average {
+.book_block_down {
     top: 35%;
 }
 
-.book_block_down {
+.book_block_down_down {
     top: 60%;
 }
 
@@ -116,7 +117,20 @@
     left: 3%;
     top: 2%;
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: undefined;
+}
+
+#book_author {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 3%;
+    top: 18%;
+    text-align: left;
+    font-size: 16px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -127,9 +141,22 @@
     position: absolute;
     font-family: Montserrat;
     left: 3%;
-    top: 25%;
+    top: 35%;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: undefined;
+}
+
+#pages {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 50%;
+    top: 85%;
+    text-align: left;
+    font-size: 17px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -140,6 +167,7 @@
     width: 10%;
     height: 10%;
     top: 85%;
+    cursor: pointer;
 }
 
 #prev_page_block {
@@ -161,6 +189,10 @@
     line-height: undefined;
 }
 
+#next_page_text {
+    left: 45%;
+}
+
 #prev_page_text {
     left: 45%;
 }
@@ -180,4 +212,17 @@
 
 #arrow_icon_next {
     left: 80%;
+}
+
+#no_res {
+    color: rgba(0, 0, 0, 1);
+    opacity: 1;
+    position: absolute;
+    font-family: Tenor Sans;
+    left: 10%;
+    top: 20%;
+    text-align: left;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: undefined;
 }

@@ -52,7 +52,7 @@
 
 #favorites_block {
     opacity: 1;
-    width: 210px;
+    width: 165px;
     height: 100px;
     position: absolute;
     top: 15%;
@@ -61,7 +61,7 @@
 
 #recommendations_block {
     opacity: 1;
-    width: 270px;
+    width: 325px;
     height: 100px;
     position: absolute;
     top: 55%;
@@ -107,11 +107,11 @@
     color: rgba(0, 0, 0, 1);
     opacity: 1;
     position: absolute;
-    left: 20%;
+    left: 30%;
     top: 5%;
     font-family: Tenor Sans;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -120,9 +120,9 @@
     color: rgba(0, 0, 0, 1);
     opacity: 1;
     position: absolute;
-    left: 10%;
+    left: 7%;
     font-family: Tenor Sans;
-    font-size: 24px;
+    font-size: 22px;
     letter-spacing: 0;
     line-height: undefined;
 }
@@ -149,10 +149,10 @@
 #edit_button {
     background-color: rgba(238.00000101327896, 235.0000011920929, 230.00000149011612, 0.7599999904632568);
     opacity: 1;
-    width: 70%;
+    width: 50%;
     height: 20%;
     position: absolute;
-    left: 20%;
+    left: 26%;
     top: 70%;
     border-top-left-radius: 29px;
     border-top-right-radius: 29px;
@@ -162,9 +162,9 @@
 
 #settings_icon {
     opacity: 1;
-    width: 10%;
+    width: 14%;
     position: absolute;
-    right: 5%;
+    left: 65%;
     top: 16%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -174,8 +174,8 @@
     color: rgba(115.81250354647636, 115.81250354647636, 115.81250354647636, 1);
     opacity: 1;
     position: absolute;
-    top: 7%;
-    left: 7%;
+    top: 9%;
+    left: 30%;
     font-family: Tenor Sans;
     text-align: center;
     font-size: 24px;

@@ -6,10 +6,10 @@
     <link href="../css/settings_style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Tenor+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <title>litSearch - Настройки</title>
+    <title>litSearch - Settings</title>
 </head>
 
-<body>
+<body onload="loadPage()">
     <div id="bg">
         <div id="menu">
             <a href="main.html">
@@ -26,18 +26,19 @@
             </a>
         </div>
         <div id="info_block">
-            <span id="info_text">Личная информация</span>
+            <span id="info_text">Personal info</span>
             <div id="info_titles">
-                <span class="title name">Имя: </span>
-                <input type="text" class="value name" id="name_value" placeholder="Алина">
+                <span class="title name">Name: </span>
+                <input type="text" class="value name" id="name_value" placeholder="">
                 <span class="title email">Email: </span>
-                <input type="email" class="value email" id="email_value" placeholder="alina@mail.ru">
-                <span class="title pswd">Пароль: </span>
-                <input type="password" class="value pswd" id="pswd_value" placeholder="********">
+                <input type="email" class="value email" id="email_value" placeholder="">
+                <span class="title pswd">Password: </span>
+                <input type="password" class="value pswd" id="pswd_value" placeholder="">
             </div>
-            <input type="submit" id="save_button" value="Сохранить">
+            <input type="submit" id="save_button" value="Save" onclick="saveChanges()">
         </div>
     </div>
+    <script src="../js/settings.js"></script>
 </body>
 
 </html>
