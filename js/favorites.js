@@ -9,161 +9,98 @@ var results = [];
 var k = 0;
 var n_page = 1;
 
-var items = [];
+var user_id = "1";
 
-function request1(id) {
-    $.ajax({
+var favs = [];
+var filledFavs = 0;
+
+function getFavsRequest() {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
         type: "GET",
-        url: "https://www.googleapis.com/books/v1/volumes/" + id + "?projection=lite",
-        // success: function(data) {
-        //     response.push(data);
-        //     // console.log(items);
-        // },
-        // dataType: "json"
-    }).then(function(data) {
-        // response.push(data);
-        // console.log(response);
-        console.log(data);
-        return data;
+        contentType: "text/plain",
+        data: { "user_id": user_id },
+        dataType: "json",
+        success: function(data) {},
     });
 }
 
-// function request(id) {
-//     const request = new XMLHttpRequest();
-//     const url = "https://www.googleapis.com/books/v1/volumes/" + id + "?projection=lite";
-//     request.responseType = "json";
-//     request.open("GET", url, true);
-
-//     request.addEventListener("readystatechange", () => {
-//         if (request.readyState === 4 && request.status === 200) {
-//             console.log(request.responseText);
-//         }
-//     });
-//     return request.responseText;
-// }
-
-
-
-function request(id) {
-    var req = new XMLHttpRequest();
-    req.responseType = "json";
-    req.open("GET", "https://www.googleapis.com/books/v1/volumes/" + id + "?projection=lite", true);
-
-    req.addEventListener("load", function() {
-        console.log("Done:", req.responseText);
-        return req.responseText;
-
+function getFavs() {
+    getFavsRequest().done(function(result) {
+        if (result) {
+            filledFavs = 1;
+            favs = result;
+        }
+    }).fail(function() {
+        alert('Error');
+        return -1;
     });
-    req.send(null);
 }
 
-function loadPage() {
-    //запрос GET для получения id-s favs;
-    //получение по id-s по api json-ов книг;
-    var favs = {
-        'ids': [
-            "jCfyDwAAQBAJ",
-            "iAs4Lz5yog0C",
-            "mDKphT8_XLsC",
-            "aPDWoV34ISoC"
-        ]
-    };
+function getBookRequest(book_id) {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/books",
+        type: "GET",
+        contentType: "text/plain",
+        data: { "book_id": book_id },
+        dataType: "json",
+        success: function(data) {},
+    });
+}
 
-    var response = [];
-    var items = [];
+var timerId;
+var firstTime = true;
 
-    for (i = 0; i < favs.ids.length; i++) {
-        var id = favs.ids[i];
+function loadPage(block_num) {
+    getFavs();
+    timerId = setInterval(() => {
+        loadPageFull();
+    }, 100);
+}
 
-        var req = new XMLHttpRequest();
-        req.responseType = "json";
-        req.open("GET", "https://www.googleapis.com/books/v1/volumes/" + id + "?projection=lite", true);
-
-
-        // req.onload = function() {
-        //     console.log(req.response);
-        //     // if (req.status != 200) {
-        //     //     console.log("Ошибка ${req.status}: ${req.statusText}");
-        //     // } else {
-        //     //     console.log(req.response);
-        //     // }
-        // };
-        // req.send(null);
-
-        // req.onprogress = function(event) {
-        //     if (event.lengthComputable) {
-        //         console.log("Получено ${event.loaded} из ${event.total} байт");
-        //     } else {
-        //         console.log("Получено ${event.loaded} байт"); // если в ответе нет заголовка Content-Length
-        //     }
-        // };
-
-        // req.onerror = function() {
-        //     alert("Запрос не удался");
-        // };
-
-        // req.addEventListener("load", function() {
-        //     console.log("Done:", req.responseText);
-        //     response.push(req.responseText);
-        //     console.log(response);
-        // });
-
-
-        // var data = request(id);
-
-        // while (!data) {}
-        console.log('hi');
-        // response.push(data);
-
-        $.ajax({
-            type: "GET",
-            url: "https://www.googleapis.com/books/v1/volumes/" + id + "?projection=lite",
-            // success: function(data) {
-            //     response.push(data);
-            //     // console.log(items);
-            // },
-            dataType: "json"
-        }).done(function(data) {
-            items.push(data);
-            console.log(items);
-            if (i == favs.ids.length - 1) {
-                handleResponse(items);
-                console.log('hi from if');
+function getBooks(books) {
+    for (i = 0; i < favs.length; i++) {
+        var book_id = favs[i];
+        getBookRequest(book_id).done(function(result) {
+            if (result) {
+                books.push(result);
             }
         });
     }
-
-    console.log('hi');
-    console.log(response);
-    // console.log(response[0]);
-    // handleResponse(response);
 }
 
-console.log(items);
+var books = [];
 
+function loadPageFull() {
+    if (filledFavs) {
+        clearInterval(timerId);
+        favs = favs.favorites;
 
-//эту функцию тоже подправить;
+        getBooks(books);
+        timerId = setInterval(() => {
+            handleResponse(books)
+        }, 10);
+    }
+}
+
 function handleResponse(response) {
-    console.log('hi from handle');
     if (!response) {
         document.querySelector("#main_block").innerHTML = "<span id='no_res'>No favorites</span>";
-    } else {
+    } else if (response.length == favs.length) {
+        clearInterval(timerId);
         counter = 0;
         k = response.length;
-        console.log(response[0]);
-        console.log(response.length);
         results = response;
         for (var i = 0; i < n; i++) {
             if (response[i]) {
                 var item = response[i];
-                console.log(item);
                 var div = document.querySelector('#book_block' + String(i + 1));
                 var title = div.querySelector('#book_title');
                 var author = div.querySelector('#book_author');
                 var descr = div.querySelector('#book_text');
-                var it_title = String(item.volumeInfo.title);
-                var it_author = String(item.volumeInfo.authors);
-                var it_descr = String(item.volumeInfo.description);
+                var it_title = String(item.book_title);
+                var it_author = String(item.book_author);
+                var it_descr = String(item.book_description);
                 if (it_author == 'undefined') it_author = '';
                 if (it_descr == 'undefined') it_descr = '';
 
@@ -280,21 +217,56 @@ function toPrevPage() {
     c = q;
 }
 
-function deleteBook(block_num) {
-    var item = results[block_num + n * (n_page - 1) - 1];
-    var it_id = String(item.id);
-    // запрос DELETE;
-    // обновить данные на странице;
+function removeItem(arr, value) {
+    var idx = arr.indexOf(value);
+    if (idx > -1) {
+        arr.splice(idx, 1);
+    }
+    return arr;
+}
+
+function deleteFavRequest(book_id) {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
+        type: "DELETE",
+        contentType: "text/plain",
+        data: JSON.stringify({
+            "user_id": user_id,
+            "book_id": book_id
+        }),
+        dataType: "json",
+        success: function(data) {},
+    });
+}
+
+function deleteFavBook(item) {
+    var book_id = item.book_id;
+    removeItem(favs, book_id);
+    removeItem(books, item);
+
+    deleteFavRequest(book_id);
+    handleResponse(books);
+}
+
+function deleteFavBookAtPage(block_num) {
+    var item = books[block_num + n * (n_page - 1) - 1];
+    var book_id = item.book_id;
+    removeItem(favs, book_id);
+    removeItem(books, item);
+
+    deleteFavRequest(book_id);
+    handleResponse(books);
 }
 
 function openBookInfo(block_num) {
-    var item = results[block_num + n * (n_page - 1) - 1];
-    var it_title = String(item.volumeInfo.title);
-    var it_author = String(item.volumeInfo.authors);
-    var it_descr = String(item.volumeInfo.description);
-    var it_year = String(item.volumeInfo.publishedDate);
-    var it_rate = String(item.volumeInfo.averageRating);
-    var it_id = String(item.id);
+    var item = books[block_num + n * (n_page - 1) - 1];
+    var it_title = String(item.book_title);
+    var it_author = String(item.book_author);
+    var it_descr = String(item.book_description);
+    var it_year = String(item.book_date);
+    var it_rate = String(item.book_date);
+    var it_id = String(item.book_id);
+    var it_link = String(item.book_link);
     var newWin = window.open("about:blank", "book_info", "width=800,height=600, location=no, left=50%, scrollbars=yes");
 
     newWin.document.write('<!DOCTYPE HTML>\
@@ -312,6 +284,7 @@ function openBookInfo(block_num) {
                 <input type="image" id="heart_button" src="../images/heart.png">\
                 <span id="add_to_fav_text">In</br>favorites</span>\
             </div>\
+            <a id="link_google" target="_blank" href=' + it_link + '>Open in Google Books</a>\
             <div id="book_block">\
                 <span class="book_title" id="book_name">Title: </span>\
                 <span class="book_text" id="book_name_text">' + it_title + '</br></span>\
@@ -331,11 +304,7 @@ function openBookInfo(block_num) {
 
     var favBtn = newWin.document.querySelector("#add_to_fav_block");
     favBtn.addEventListener('click', event => {
-        // удаление из избранного и переставить элементы в избранном;
-        var json = {
-            'id': it_id,
-        };
+        deleteFavBook(item);
         newWin.close();
-        // alert(JSON.stringify(json));
     });
 }

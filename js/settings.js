@@ -1,51 +1,102 @@
 //запрос к бд;
+var user_id = "1";
+var password_len = 7;
 
-var response_ = {
-    'name': "Alina",
-    'email': "alina@mail.ru",
-    'password_len': "8"
-};
+var info = {};
 
-function loadPage() {
-    loadInfoInput(response_);
+function getInfoRequest() {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users",
+        type: "GET",
+        contentType: "text/plain",
+        data: { "user_id": user_id },
+        dataType: "json",
+        success: function(data) {},
+    });
 }
 
-function loadInfoInput(response) {
-    var name = document.querySelector("#name_value");
-    var email = document.querySelector("#email_value");
-    var pswd = document.querySelector("#pswd_value");
-    name.placeholder = response.name;
-    email.placeholder = response.email;
-    pswd.placeholder = '*'.repeat(response.password_len);
+var filledInfo = false;
+
+function getInfo() {
+    getInfoRequest().done(function(result) {
+        if (result) {
+            info = result;
+            filledInfo = true;
+        }
+    });
+};
+
+var timerId;
+
+function loadPage() {
+    getInfo();
+    timerId = setInterval(() => {
+        loadPageFull();
+    }, 100);
+}
+
+function loadPageFull() {
+    if (filledInfo) {
+        clearInterval(timerId);
+        var name = document.querySelector("#name_value");
+        var email = document.querySelector("#email_value");
+        var pswd = document.querySelector("#pswd_value");
+        name.placeholder = info.name;
+        email.placeholder = info.email;
+        pswd.placeholder = '*'.repeat(password_len);
+    }
+}
+
+function putInfoRequest(user) {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users",
+        type: "PUT",
+        contentType: "text/plain",
+        data: JSON.stringify({
+            "user_id": String(user_id),
+            "name": String(user.name),
+            "email": String(user.email)
+        }),
+        dataType: "json",
+        success: function(data) {},
+    });
 }
 
 function saveChanges() {
-    var name = document.querySelector("#name_value").value;
-    var email = document.querySelector("#email_value").value;
-    var pswd = document.querySelector("#pswd_value").value;
+    var name = info.name;
+    var email = info.email;
+    // var pswd_len = response_.password_len;
+    var name_val = document.querySelector("#name_value").value;
+    var email_val = document.querySelector("#email_value").value;
+    // var pswd_val = document.querySelector("#pswd_value").value;
 
-    if (name != "") {
-        //запрос к бд с обновлением имени;
-        var json = {
-            'name': name
-        };
-        alert(JSON.stringify(json));
+    var f = 0;
+
+    if (name_val != "") {
+        name = name_val;
+        f = 1;
     }
+    if (email_val != "") {
+        email = email_val;
+        f = 1;
+    }
+    // if (pswd_val != "") {
+    //     pswd_len = pswd_val.length;
+    //     f = 1;
+    // }
 
-    if (email != "") {
-        //запрос к бд с обновлением почты;
-        var json = {
+    //ОБНОВЛЕНИЕ ПАРОЛЯ
+
+    //запрос к бд с обновлением данных о юзере;
+    if (f) {
+        var user = {
+            'name': name,
             'email': email
+                // 'password_len': pswd_len
         };
-        alert(JSON.stringify(json));
+        putInfoRequest(user);
+        alert('Do you want to save changes?');
+    } else {
+        alert("Fields are empty")
     }
-
-    if (pswd != "") {
-        //запрос к бд с обновлением пароля;
-        var json = {
-            'password_len': pswd.length
-        };
-        alert(JSON.stringify(json));
-    }
-
 }

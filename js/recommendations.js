@@ -183,6 +183,7 @@ function openBookInfo(block_num) {
     var it_year = String(item.volumeInfo.publishedDate);
     var it_rate = String(item.volumeInfo.averageRating);
     var it_id = String(item.id);
+    var it_link = String(item.book_link);
     var newWin = window.open("about:blank", "book_info", "width=800,height=600, location=no, left=50%, scrollbars=yes");
 
     newWin.document.write('<!DOCTYPE HTML>\
@@ -200,6 +201,7 @@ function openBookInfo(block_num) {
                 <input type="image" id="heart_button" src="../images/heart.png">\
                 <span id="add_to_fav_text">Add</br>to favorites</span>\
             </div>\
+            <a id="link_google" target="_blank" href=' + it_link + '>Open in Google Books</a>\
             <div id="book_block">\
                 <span class="book_title" id="book_name">Title: </span>\
                 <span class="book_text" id="book_name_text">' + it_title + '</br></span>\

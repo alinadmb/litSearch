@@ -182,3 +182,31 @@
     letter-spacing: 0;
     line-height: undefined;
 }
+
+#logout_button {
+    cursor: pointer;
+    background-color: rgba(238.00000101327896, 235.0000011920929, 230.00000149011612, 0.7599999904632568);
+    opacity: 1;
+    width: 140px;
+    height: 40px;
+    position: absolute;
+    left: 76%;
+    top: 50%;
+    border-top-left-radius: 29px;
+    border-top-right-radius: 29px;
+    border-bottom-left-radius: 29px;
+    border-bottom-right-radius: 29px;
+}
+
+#logout_text {
+    color: rgba(115.81250354647636, 115.81250354647636, 115.81250354647636, 1);
+    opacity: 1;
+    position: absolute;
+    top: 9%;
+    left: 19%;
+    font-family: Tenor Sans;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: undefined;
+}

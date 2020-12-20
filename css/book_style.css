@@ -23,6 +23,19 @@
     border-bottom-right-radius: 58px;
 }
 
+#link_google {
+    color: rgba(115.81250354647636, 115.81250354647636, 115.81250354647636, 1);
+    opacity: 1;
+    position: absolute;
+    left: 7%;
+    top: 5%;
+    font-family: Tenor Sans;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: undefined;
+}
+
 #heart_button {
     opacity: 1;
     width: 34px;

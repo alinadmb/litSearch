@@ -9,6 +9,8 @@ var results = [];
 var k = 0;
 var n_page = 1;
 
+var user_id = "1";
+
 function handleResponse(response) {
     if (!response.items) {
         document.querySelector("#content").innerHTML = "<span id='no_res'>No results</span>";
@@ -159,17 +161,153 @@ function toPrevPage() {
     c = q;
 }
 
-function openBookInfo(block_num) {
-    var item = results[block_num + n * (n_page - 1) - 1];
-    var it_title = String(item.volumeInfo.title);
-    var it_author = String(item.volumeInfo.authors);
-    var it_descr = String(item.volumeInfo.description);
-    var it_year = String(item.volumeInfo.publishedDate);
-    var it_rate = String(item.volumeInfo.averageRating);
-    var it_id = String(item.id);
-    var newWin = window.open("about:blank", "book_info", "width=800,height=600, location=no, left=50%, scrollbars=yes");
+function contains(arr, elem) {
+    for (var i = 0; i < arr.length; i++) {
+        if (elem == arr[i])
+            return true;
+    }
+    return false;
+}
 
-    newWin.document.write('<!DOCTYPE HTML>\
+function removeItem(arr, value) {
+    var idx = arr.indexOf(value);
+    if (idx > -1) {
+        arr.splice(idx, 1);
+    }
+    return arr;
+}
+
+var favs = [];
+
+function postBookRequest(item) {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/books",
+        type: "POST",
+        contentType: "text/plain",
+        data: JSON.stringify({
+            "book_id": String(item.id),
+            "book_title": String(item.volumeInfo.title),
+            "book_author": String(item.volumeInfo.authors),
+            "book_description": String(item.volumeInfo.description),
+            "book_date": String(item.volumeInfo.publishedDate),
+            "book_rate": String(item.volumeInfo.averageRating),
+            "book_link": String(item.volumeInfo.previewLink)
+        }),
+        dataType: "json",
+        success: function(data) {},
+    });
+}
+
+function getFavsRequest() {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
+        type: "GET",
+        contentType: "text/plain",
+        data: { "user_id": user_id },
+        dataType: "json",
+        success: function(data) {},
+    });
+}
+
+var filledFavs = 0;
+
+function getFavs() {
+    getFavsRequest().done(function(result) {
+        if (result) {
+            favs = result;
+            filledFavs = 1;
+        }
+    });
+};
+
+function postFavRequest(book_id) {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
+        type: "POST",
+        contentType: "text/plain",
+        data: JSON.stringify({
+            "user_id": user_id,
+            "book_id": book_id
+        }),
+        dataType: "json",
+        success: function(data) {},
+    });
+}
+
+function addFavBook(item) {
+    var book_id = String(item.id);
+    favs.push(String(book_id));
+
+    postFavRequest(book_id);
+    postBookRequest(item);
+}
+
+function deleteFavRequest(book_id) {
+    return $.ajax({
+        url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
+        type: "DELETE",
+        contentType: "text/plain",
+        data: JSON.stringify({
+            "user_id": user_id,
+            "book_id": book_id
+        }),
+        dataType: "json",
+        success: function(data) {},
+    });
+}
+
+function deleteFavBook(favs, book_id) {
+    removeItem(favs, book_id);
+
+    deleteFavRequest(book_id);
+}
+
+var timerId;
+var firstTime = true;
+
+function openBookInfo(block_num) {
+    if (firstTime) {
+        getFavs();
+        timerId = setInterval(() => {
+            openBookInfoFull(block_num);
+        }, 100);
+    } else {
+        openBookInfoFull(block_num);
+    }
+}
+
+function openBookInfoFull(block_num) {
+    if (filledFavs) {
+        if (firstTime) {
+            clearInterval(timerId);
+            firstTime = false;
+            favs = favs.favorites;
+        }
+
+        var item = results[block_num + n * (n_page - 1) - 1];
+        var it_title = String(item.volumeInfo.title);
+        var it_author = String(item.volumeInfo.authors);
+        var it_descr = String(item.volumeInfo.description);
+        var it_year = String(item.volumeInfo.publishedDate);
+        var it_rate = String(item.volumeInfo.averageRating);
+        var it_id = String(item.id);
+        var it_link = String(item.volumeInfo.previewLink);
+        var newWin = window.open("about:blank", "book_info", "width=800,height=600, location=no, left=50%, scrollbars=yes");
+
+        var favBtnValue;
+        var f = 0;
+        if (contains(favs, it_id)) {
+            f = 1;
+        } else {
+            f = 0;
+        }
+        if (f == 0) { // добавить в избранное;
+            favBtnValue = "Add\nto favorites";
+        } else { // удаление из избранного;
+            favBtnValue = "In\nfavorites";
+        }
+
+        newWin.document.write('<!DOCTYPE HTML>\
     <html>\
     <head>\
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\
@@ -182,8 +320,9 @@ function openBookInfo(block_num) {
         <div id="bg">\
             <div id="add_to_fav_block">\
                 <input type="image" id="heart_button" src="../images/heart.png">\
-                <span id="add_to_fav_text">Add</br>to favorites</span>\
+                <span id="add_to_fav_text">' + favBtnValue + '</span>\
             </div>\
+            <a id="link_google" target="_blank" href=' + it_link + '>Open in Google Books</a>\
             <div id="book_block">\
                 <span class="book_title" id="book_name">Title: </span>\
                 <span class="book_text" id="book_name_text">' + it_title + '</br></span>\
@@ -201,29 +340,23 @@ function openBookInfo(block_num) {
     </body>\
     </html>')
 
-    //проверить, есть ли книга в избранном;
-    //если да, то поменять значение флага и кнопки;
-    var f = 0;
-    var favBtn = newWin.document.querySelector("#add_to_fav_block");
-    favBtn.addEventListener('click', event => {
-        if (f == 0) { // добавить в избранное;
-            f = 1;
-            favBtn.querySelector("span").textContent = "In\nfavorites";
-            var json = {
-                'id': it_id,
-            };
-        } else { // удаление из избранного;
-            favBtn.querySelector("span").textContent = "Add\nto favorites";
-            f = 0;
-            var json = {
-                'id': it_id,
-            };
-        }
-        // alert(JSON.stringify(json));
-    });
 
-    // var win = newWin.document.querySelector(".w");
-    // newWin.parent.addEventListener('click', event => {
-    //     newWin.close();
-    // });
+        var favBtn = newWin.document.querySelector("#add_to_fav_block");
+        favBtn.addEventListener('click', event => {
+            if (f == 0) { // добавить в избранное;
+                addFavBook(item);
+                favBtn.querySelector("span").textContent = "In\nfavorites";
+                f = 1;
+            } else { // удаление из избранного;
+                deleteFavBook(favs, it_id);
+                favBtn.querySelector("span").textContent = "Add\nto favorites";
+                f = 0;
+            }
+        });
+
+        // var win = newWin.document.querySelector(".w");
+        // newWin.parent.addEventListener('click', event => {
+        //     newWin.close();
+        // });
+    }
 }
