@@ -25,10 +25,16 @@ function getCookie(cname) {
 }
 
 var user_id = '';
-var token = localStorage.getItem("token");
-if (token != '') {
-    var decoded = jwt_decode(token);
-    user_id = decoded.username;
+var token;
+
+if (localStorage.getItem("token")) {
+    token = localStorage.getItem("token");
+    if (token != '') {
+        var decoded = jwt_decode(token);
+        user_id = decoded.username;
+    }
+} else {
+    window.location.href = "https://litsearch.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=o72ukjio3s1aeuhanffgh0akp&redirect_uri=https://d14dzdt6afnpms.cloudfront.net/html/books.html";
 }
 
 function getFavsRequest() {

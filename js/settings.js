@@ -1,5 +1,3 @@
-// var password_len = 7;
-
 var info = {};
 
 function getCookie(cname) {
@@ -15,10 +13,15 @@ function getCookie(cname) {
 }
 
 var user_id = '';
-var token = localStorage.getItem("token");
-if (token != '') {
-    var decoded = jwt_decode(token);
-    user_id = decoded.username;
+var token;
+if (localStorage.getItem("token")) {
+    token = localStorage.getItem("token");
+    if (token != '') {
+        var decoded = jwt_decode(token);
+        user_id = decoded.username;
+    }
+} else {
+    window.location.href = "https://litsearch.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=o72ukjio3s1aeuhanffgh0akp&redirect_uri=https://d14dzdt6afnpms.cloudfront.net/html/books.html";
 }
 
 function getInfoRequest() {
@@ -57,11 +60,7 @@ function loadPageFull() {
     if (filledInfo) {
         clearInterval(timerId);
         var name = document.querySelector("#name_value");
-        var email = document.querySelector("#email_value");
-        // var pswd = document.querySelector("#pswd_value");
         name.placeholder = info.name;
-        email.placeholder = info.email;
-        // pswd.placeholder = '*'.repeat(password_len);
     }
 }
 
@@ -73,8 +72,7 @@ function putInfoRequest(user) {
         contentType: "text/plain",
         data: JSON.stringify({
             "user_id": String(user_id),
-            "name": String(user.name),
-            "email": String(user.email)
+            "name": String(user.name)
         }),
         dataType: "json",
         success: function(data) {},
@@ -83,11 +81,7 @@ function putInfoRequest(user) {
 
 function saveChanges() {
     var name = info.name;
-    var email = info.email;
-    // var pswd_len = response_.password_len;
     var name_val = document.querySelector("#name_value").value;
-    var email_val = document.querySelector("#email_value").value;
-    // var pswd_val = document.querySelector("#pswd_value").value;
 
     var f = 0;
 
@@ -95,19 +89,10 @@ function saveChanges() {
         name = name_val;
         f = 1;
     }
-    if (email_val != "") {
-        email = email_val;
-        f = 1;
-    }
-    // if (pswd_val != "") {
-    //     pswd_len = pswd_val.length;
-    //     f = 1;
-    // }
 
     if (f) {
         var user = {
-            'name': name,
-            'email': email
+            'name': name
         };
         putInfoRequest(user);
         alert('Do you want to save changes?');

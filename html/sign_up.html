@@ -3,14 +3,13 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="icon" href="data:;base64,=">
-    <link href="../css/settings_style.css" type="text/css" rel="stylesheet">
+    <link href="../css/sign_up_style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Tenor+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <title>litSearch - Settings</title>
+    <title>litSearch - Sign Up</title>
 </head>
 
-<body onload="loadPage()">
+<body>
     <div id="bg">
         <div id="menu">
             <a href="main.html">
@@ -26,18 +25,18 @@
                 <img id="heart_icon" class="icon" src="../images/heart.png">
             </a>
         </div>
-        <div id="info_block">
-            <span id="info_text">Personal info</span>
-            <div id="info_titles">
-                <span class="title name">Name: </span>
-                <input type="text" class="value name" id="name_value" placeholder="" value="">
+        <div id="form_block">
+            <span id="signup_text">Sign Up</span>
+            <input type="text" name="name" id="input_block_name" class="input_block" placeholder="Name">
+            <input type="email" name="email" id="input_block_email" class="input_block" placeholder="Email">
+            <input type="password" name="password" id="input_block_pswd" class="input_block" placeholder="Password">
+            <input type="button" id="signup_button" value="Sign Up">
+            </input>
+            <div id="no_acc_block">Already have an account?</br>
+                <a href="sign_in.html" style="color: #747474">Sign In</a>
             </div>
-            <input type="submit" id="save_button" value="Save" onclick="saveChanges()">
         </div>
     </div>
-    <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../js/jwt-decode.js"></script>
-    <script src="../js/settings.js"></script>
 </body>
 
 </html>

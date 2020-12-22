@@ -91,9 +91,9 @@
 #info_block {
     overflow: hidden;
     opacity: 1;
-    width: 25%;
+    width: 30%;
     height: 30%;
-    left: 68%;
+    left: 63%;
     top: 15%;
     position: absolute;
     background-color: rgba(249.6875050663948, 232.20940053462982, 205.99219053983688, 0.15000000596046448);
@@ -107,7 +107,7 @@
     color: rgba(0, 0, 0, 1);
     opacity: 1;
     position: absolute;
-    left: 30%;
+    left: 35%;
     top: 5%;
     font-family: Tenor Sans;
     text-align: center;
@@ -149,10 +149,10 @@
 #edit_button {
     background-color: rgba(238.00000101327896, 235.0000011920929, 230.00000149011612, 0.7599999904632568);
     opacity: 1;
-    width: 50%;
+    width: 40%;
     height: 20%;
     position: absolute;
-    left: 26%;
+    left: 30%;
     top: 70%;
     border-top-left-radius: 29px;
     border-top-right-radius: 29px;
@@ -190,7 +190,7 @@
     width: 140px;
     height: 40px;
     position: absolute;
-    left: 76%;
+    left: 73%;
     top: 50%;
     border-top-left-radius: 29px;
     border-top-right-radius: 29px;

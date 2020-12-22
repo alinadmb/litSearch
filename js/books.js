@@ -28,7 +28,7 @@ function setLocalStorage(cname, cvalue) {
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
-    console.log(ca);
+    // console.log(ca);
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') c = c.substring(1);
@@ -66,11 +66,17 @@ function loadPage() {
     token = getToken();
     if (token != '') {
         localStorage.setItem("token", token);
+        var decoded = jwt_decode(token);
+        user_id = decoded.username;
     } else {
-        token = localStorage.getItem("token");
+        if (localStorage.getItem("token")) {
+            token = localStorage.getItem("token");
+            var decoded = jwt_decode(token);
+            user_id = decoded.username;
+        } else {
+            window.location.href = "https://litsearch.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=o72ukjio3s1aeuhanffgh0akp&redirect_uri=https://d14dzdt6afnpms.cloudfront.net/html/books.html";
+        }
     }
-    var decoded = jwt_decode(token);
-    user_id = decoded.username;
 }
 
 function handleResponse(response) {
