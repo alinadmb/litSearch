@@ -9,17 +9,35 @@ var results = [];
 var k = 0;
 var n_page = 1;
 
-var user_id = "1";
-
 var favs = [];
 var filledFavs = 0;
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    console.log(ca);
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+var user_id = '';
+var token = localStorage.getItem("token");
+if (token != '') {
+    var decoded = jwt_decode(token);
+    user_id = decoded.username;
+}
 
 function getFavsRequest() {
     return $.ajax({
         url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
         type: "GET",
+        headers: { 'Authorization': token },
         contentType: "text/plain",
-        data: { "user_id": user_id },
+        data: { "user_id": String(user_id) },
         dataType: "json",
         success: function(data) {},
     });
@@ -52,6 +70,8 @@ var timerId;
 var firstTime = true;
 
 function loadPage(block_num) {
+
+
     getFavs();
     timerId = setInterval(() => {
         loadPageFull();
@@ -229,9 +249,10 @@ function deleteFavRequest(book_id) {
     return $.ajax({
         url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
         type: "DELETE",
+        headers: { 'Authorization': token },
         contentType: "text/plain",
         data: JSON.stringify({
-            "user_id": user_id,
+            "user_id": String(user_id),
             "book_id": book_id
         }),
         dataType: "json",

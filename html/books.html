@@ -3,13 +3,14 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" href="data:;base64,=">
     <link href="../css/books_style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Tenor+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <title>litSearch - Books</title>
 </head>
 
-<body>
+<body onload="loadPage()">
     <div id="bg">
         <div id="menu">
             <a href="main.html">
@@ -93,6 +94,7 @@
         </div>
     </div>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/jwt-decode.js"></script>
     <script src="../js/books.js"></script>
     <div id="scripts">
         <script id="link" type="text/javascript" src="https://www.googleapis.com/books/v1/volumes?q=dostoevsky&callback=handleResponse&maxResults=40"></script>

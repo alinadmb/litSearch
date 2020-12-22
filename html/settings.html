@@ -3,6 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" href="data:;base64,=">
     <link href="../css/settings_style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Tenor+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
@@ -32,13 +33,14 @@
                 <input type="text" class="value name" id="name_value" placeholder="" value="">
                 <span class="title email">Email: </span>
                 <input type="email" class="value email" id="email_value" placeholder="" value="">
-                <span class="title pswd">Password: </span>
-                <input type="password" class="value pswd" id="pswd_value" placeholder="" value="">
+                <!-- <span class="title pswd">Password: </span>
+                <input type="password" class="value pswd" id="pswd_value" placeholder="" value=""> -->
             </div>
             <input type="submit" id="save_button" value="Save" onclick="saveChanges()">
         </div>
     </div>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/jwt-decode.js"></script>
     <script src="../js/settings.js"></script>
 </body>
 

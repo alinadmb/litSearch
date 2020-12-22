@@ -9,7 +9,69 @@ var results = [];
 var k = 0;
 var n_page = 1;
 
-var user_id = "1";
+// function setCookie(cname, cvalue, exdays) {
+//     var d = new Date();
+//     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+//     var expires = "expires=" + d.toUTCString();
+//     document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+// }
+
+function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + "; ";
+    // localStorage.setItem(cname, cvalue);
+}
+
+function setLocalStorage(cname, cvalue) {
+    localStorage.setItem(cname, cvalue);
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    console.log(ca);
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+// function getCookie(cookie_name) {
+//     var results = document.cookie.match('(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
+
+//     if (results)
+//         return (unescape(results[2]));
+//     else
+//         return null;
+// }
+
+function getToken() {
+    var token = '';
+    var query = String(document.location.href).split('#');
+    if (query[1]) {
+        var part = query[1].split('&');
+        for (i = 0; i < part.length; i++) {
+            var data = part[i].split('=');
+            if (data[0] == 'access_token' && data[1])
+                return data[1];
+        }
+    }
+    return '';
+}
+
+var user_id;
+
+function loadPage() {
+    token = getToken();
+    if (token != '') {
+        localStorage.setItem("token", token);
+    } else {
+        token = localStorage.getItem("token");
+    }
+    var decoded = jwt_decode(token);
+    user_id = decoded.username;
+}
 
 function handleResponse(response) {
     if (!response.items) {
@@ -178,6 +240,7 @@ function removeItem(arr, value) {
 }
 
 var favs = [];
+var token = getCookie("token");
 
 function postBookRequest(item) {
     return $.ajax({
@@ -202,8 +265,9 @@ function getFavsRequest() {
     return $.ajax({
         url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
         type: "GET",
+        headers: { 'Authorization': token },
         contentType: "text/plain",
-        data: { "user_id": user_id },
+        data: { "user_id": String(user_id) },
         dataType: "json",
         success: function(data) {},
     });
@@ -224,9 +288,10 @@ function postFavRequest(book_id) {
     return $.ajax({
         url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
         type: "POST",
+        headers: { 'Authorization': token },
         contentType: "text/plain",
         data: JSON.stringify({
-            "user_id": user_id,
+            "user_id": String(user_id),
             "book_id": book_id
         }),
         dataType: "json",
@@ -246,9 +311,10 @@ function deleteFavRequest(book_id) {
     return $.ajax({
         url: "https://f3f59c3lb7.execute-api.us-east-1.amazonaws.com/v1/users/favorites",
         type: "DELETE",
+        headers: { 'Authorization': token },
         contentType: "text/plain",
         data: JSON.stringify({
-            "user_id": user_id,
+            "user_id": String(user_id),
             "book_id": book_id
         }),
         dataType: "json",
